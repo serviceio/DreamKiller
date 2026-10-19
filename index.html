@@ -5,12 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Dream Killer</title>
 
-  <!-- 1. أولوية قصوى لتحميل الخط والفيديو الصوتي قبل كل شيء -->
   <link rel="preload" href="uighur.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="ved%20aud.mp4" as="video" type="video/mp4">
 
   <style>
-    /* استدعاء الخط المرفوع في المستودع uighur.ttf */
     @font-face {
       font-family: 'Microsoft Uighur';
       src: url('uighur.ttf') format('truetype'),
@@ -35,14 +33,13 @@
       width: 100%;
       min-height: 100%;
       overflow-x: hidden;
-      background-color: #0d1118; /* اللون الكحلي الليلي المطابق لخلفية الصور تماماً */
-      background-image: none; /* إزالة التدرج البني نهائياً */
+      background-color: #0d1118;
+      background-image: none;
       font-family: 'Microsoft Uighur', serif;
       margin: 0;
       padding: 0;
     }
 
-    /* الحاوية الرئيسية */
     .mobile-container {
       width: 100%;
       max-width: 500px;
@@ -53,7 +50,6 @@
       background-color: #0d1118;
     }
 
-    /* تنسيق موحد لجميع النصوص في الصفحة */
     .styled-text {
       color: #edc72c;
       font-family: 'Microsoft Uighur', serif;
@@ -61,9 +57,8 @@
       line-height: 1.35;
       text-align: center;
       width: 100%;
-      padding: 12px 10px;
+      padding: 16px 10px;
       z-index: 2;
-      /* الأوت لاين المطلوب #422117 بحجم 4px */
       -webkit-text-stroke: 4px #422117;
       paint-order: stroke fill;
       text-shadow: 
@@ -73,15 +68,14 @@
         -1.5px 1.5px 0 #422117;
     }
 
-    /* العنوان الأول Dream Killer في سطر واحد متناسق */
     .title-en {
       direction: ltr;
       white-space: nowrap;
       font-size: clamp(2.4rem, 8.5vw, 3.1rem);
-      padding: 18px 10px 10px 10px;
+      padding: 20px 10px 12px 10px;
     }
 
-    /* حاوية الصور والفيديوهات متلاصقة بدون فواصل */
+    /* تلاصق تام للصور والفيديوهات بدون أي مسافات أو هوامش بينها */
     .media-wrapper {
       width: 100%;
       position: relative;
@@ -103,15 +97,16 @@
       outline: none;
       pointer-events: none;
       background-color: #0d1118;
+      margin: 0;
+      padding: 0;
     }
 
-    /* الفيديو الصوتي والفيديوهات بدون أي قص أو ضبابية من الأعلى والأسفل */
+    /* إلغاء أي فواصل وتطبيق التلاصق مع الخلفية تماماً */
     .no-fade {
       -webkit-mask-image: none !important;
       mask-image: none !important;
     }
 
-    /* إخفاء جميع أزرار وعناصر التحكم للفيديو في كافة المتصفحات */
     video::-webkit-media-controls,
     video::-webkit-media-controls-enclosure,
     video::-webkit-media-controls-panel,
@@ -123,13 +118,12 @@
       pointer-events: none !important;
     }
 
-    /* تنسيق الشعر الاحترافي: كل شطر في سطر واحد مستحيل أن ينكسر */
     .poem-section {
       width: 100%;
-      padding: 18px 10px;
+      padding: 22px 10px;
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 20px;
       background-color: #0d1118;
     }
 
@@ -142,21 +136,19 @@
 
     .verse-first,
     .verse-second {
-      white-space: nowrap; /* منع انكسار البيت الشعري إلى سطرين نهائياً */
+      white-space: nowrap;
       font-size: clamp(1.55rem, 5.6vw, 2.15rem);
       line-height: 1.3;
       padding: 2px 0;
       width: auto;
     }
 
-    /* الشطر الأول يبدأ من اليمين */
     .verse-first {
       align-self: flex-start;
       text-align: right;
       padding-right: 2%;
     }
 
-    /* الشطر الثاني يبدأ أسفل منتصف الشطر الأول ويمتد لليسار */
     .verse-second {
       align-self: flex-end;
       text-align: left;
@@ -168,23 +160,18 @@
 
   <main class="mobile-container">
 
-    <!-- 1. العنوان في أول الصفحة في الوسط (سطر واحد) -->
     <div class="styled-text title-en">Dream Killer</div>
 
-    <!-- 2. الصورة الأولى pic1 -->
     <div class="media-wrapper">
       <img src="pic1.jpg" alt="" class="media-item" draggable="false" loading="eager">
     </div>
 
-    <!-- 3. كلمة "نجمه" -->
     <div class="styled-text">نجمه</div>
 
-    <!-- 4. الصورة الثانية pic2 -->
     <div class="media-wrapper">
       <img src="pic2.jpg" alt="" class="media-item" draggable="false" loading="eager">
     </div>
 
-    <!-- 5. الفيديو الأول (يتحمل تلقائياً ويدعم الاسمين ved1.mp4 أو vid1.mp4) -->
     <div class="media-wrapper">
       <video class="media-item gif-video no-fade" autoplay loop muted playsinline webkit-playsinline preload="auto" disablePictureInPicture>
         <source src="ved1.mp4#t=0.001" type="video/mp4">
@@ -192,23 +179,19 @@
       </video>
     </div>
 
-    <!-- 6. النص التفاعلي -->
     <div class="styled-text">
       تعجبيني في غرورك واعتزازك 🤩<br>
       و تتعبيني في ميولك وانحيازك 😒
     </div>
 
-    <!-- 7. الصورة الثالثة pic3 -->
     <div class="media-wrapper">
       <img src="pic3.jpg" alt="" class="media-item" draggable="false" loading="eager">
     </div>
 
-    <!-- 8. الصورة الرابعة pic4 -->
     <div class="media-wrapper">
       <img src="pic4.jpg" alt="" class="media-item" draggable="false" loading="eager">
     </div>
 
-    <!-- 9. الفيديو الصوتي (بدون أي قص أو تمويه، مع أولوية التحميل المسبق الكامل) -->
     <div class="media-wrapper">
       <video id="vid-aud" class="media-item no-fade" loop playsinline webkit-playsinline preload="auto" disablePictureInPicture>
         <source src="ved%20aud.mp4#t=0.001" type="video/mp4">
@@ -216,7 +199,6 @@
       </video>
     </div>
 
-    <!-- 10. الفيديو الثاني (Loop كأنه GIF ويدعم الاسمين vid2.mp4 أو ved2.mp4) -->
     <div class="media-wrapper">
       <video class="media-item gif-video no-fade" autoplay loop muted playsinline webkit-playsinline preload="auto" disablePictureInPicture>
         <source src="vid2.mp4#t=0.001" type="video/mp4">
@@ -224,7 +206,6 @@
       </video>
     </div>
 
-    <!-- 11. الأبيات الشعرية (كل شطر في سطر كامل دون كسر، والشطر الثاني أسفل منتصف الأول) -->
     <section class="poem-section">
       <div class="stanza">
         <div class="styled-text verse-first">محطمة المواهب بنفس الوقت نجمه</div>
@@ -242,12 +223,10 @@
       </div>
     </section>
 
-    <!-- 12. الصورة الخامسة pic5 -->
     <div class="media-wrapper">
       <img src="pic5.jpg" alt="" class="media-item" draggable="false">
     </div>
 
-    <!-- 13. الصورة السادسة pic6 (نهاية الصفحة تماماً عند حدودها السفلية) -->
     <div class="media-wrapper">
       <img src="pic6.jpg" alt="" class="media-item" draggable="false">
     </div>
@@ -255,13 +234,11 @@
   </main>
 
   <script>
-    // 1. تعطيل القوائم المنبثقة والضغط المطول
     window.addEventListener('contextmenu', e => e.preventDefault(), false);
 
     const audioVideo = document.getElementById('vid-aud');
     const gifVideos = document.querySelectorAll('.gif-video');
 
-    // 2. إجبار المتصفح على تحميل الفيديو الصوتي فوراً في الخلفية منذ لحظة فتح الصفحة
     audioVideo.load();
 
     gifVideos.forEach(v => {
@@ -272,16 +249,13 @@
     let isAudioPrimed = false;
     let isPlayingForever = false;
 
-    // 3. فحص ما إذا كان الفيديو ظاهراً بشكل كامل في الشاشة
     function isVideoInView(el) {
       const rect = el.getBoundingClientRect();
       const vh = window.innerHeight || document.documentElement.clientHeight;
-      // يعمل فور ظهور 90% إلى 100% من الفيديو في الشاشة
       const visibleHeight = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
       return rect.height > 0 && (visibleHeight / rect.height) >= 0.92;
     }
 
-    // 4. تشغيل الفيديو بالصوت والصورة إلى الأبد
     function launchTargetVideo() {
       if (isPlayingForever) return;
       audioVideo.muted = false;
@@ -292,7 +266,6 @@
         playPromise.then(() => {
           isPlayingForever = true;
         }).catch(() => {
-          // إذا كان المتصفح لا يزال يقفل الصوت، شغله فوراً مع حركة الإصبع الحالية
           audioVideo.muted = false;
           audioVideo.play().then(() => {
             isPlayingForever = true;
@@ -301,23 +274,18 @@
       }
     }
 
-    // 5. الحيلة البرمجية لفك قفل الصوت في الآيفون والأندرويد عند أول لمسة في أعلى الصفحة
     function unlockAndPrimeVideo() {
-      // ضمان استمرار الفيديوهات الصامتة
       gifVideos.forEach(v => {
         if (v.paused) v.play().catch(() => {});
       });
 
       if (isPlayingForever) return;
 
-      // إذا وصل المستخدم للفيديو بالفعل، شغله مباشرة
       if (isVideoInView(audioVideo)) {
         launchTargetVideo();
         return;
       }
 
-      // تهيئة عنصر الفيديو الصوتي بصمت لأجزاء من الثانية عند أول لمسة للشاشة في أعلى الصفحة
-      // هذا يجعل Safari و Chrome يسمحان بتشغيله بالصوت لاحقاً أثناء التمرير دون الحاجة للمسه!
       if (!isAudioPrimed) {
         isAudioPrimed = true;
         audioVideo.muted = false;
@@ -340,12 +308,10 @@
       }
     }
 
-    // ربط التهيئة بأول لمسة أو تمرير يقوم به المستخدم في الصفحة
     window.addEventListener('touchstart', unlockAndPrimeVideo, { passive: true });
     window.addEventListener('touchend', unlockAndPrimeVideo, { passive: true });
     window.addEventListener('click', unlockAndPrimeVideo, { passive: true });
 
-    // 6. مراقبة التمرير والظهور لتشغيل الفيديو فور رؤيته بالكامل
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting && entry.intersectionRatio >= 0.92) {
@@ -367,7 +333,6 @@
       });
     }, { passive: true });
 
-    // 7. منع الفيديو الصوتي من التوقف نهائياً بعد أن يبدأ
     audioVideo.addEventListener('pause', () => {
       if (isPlayingForever) {
         audioVideo.play().catch(() => {});

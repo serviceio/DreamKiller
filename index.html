@@ -4,47 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Dream Killer</title>
+
+  <!-- 1. أولوية قصوى لتحميل الخط والفيديو الصوتي قبل كل شيء -->
+  <link rel="preload" href="uighur.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="ved%20aud.mp4" as="video" type="video/mp4">
+
   <style>
-    /* استدعاء خط Microsoft Uighur إذا كان متوفراً في النظام أو توفير بديل مطابق */
+    /* استدعاء الخط المرفوع في المستودع uighur.ttf */
     @font-face {
       font-family: 'Microsoft Uighur';
-      src: local('Microsoft Uighur'), local('Microsoft-Uighur');
+      src: url('uighur.ttf') format('truetype'),
+           local('Microsoft Uighur'),
+           local('Microsoft-Uighur');
+      font-weight: normal;
+      font-style: normal;
+      font-display: block;
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      /* منع التحديد والضغط المطول في الجوال */
       -webkit-touch-callout: none;
       -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
       user-select: none;
       -webkit-tap-highlight-color: transparent;
     }
 
     html, body {
       width: 100%;
-      min-height: 100vh;
+      min-height: 100%;
       overflow-x: hidden;
-      font-family: 'Microsoft Uighur', 'Traditional Arabic', 'Amiri', serif;
-      /* خلفية بنمط مدمج يحاكي خلفية الصور بدون النجوم + دعم صورة background.jpg إن وجدت */
-      background-color: #0d1118;
-      background-image: 
-        url('background.jpg'),
-        radial-gradient(circle at 50% 30%, rgba(94, 53, 35, 0.45) 0%, rgba(43, 24, 16, 0.95) 80%),
-        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.015) 0px, rgba(255, 255, 255, 0.015) 2px, transparent 2px, transparent 6px),
-        repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.04) 0px, rgba(0, 0, 0, 0.04) 2px, transparent 2px, transparent 6px),
-        linear-gradient(180deg, #3a2016 0%, #24130c 50%, #3a2016 100%);
-      background-size: cover, 100% 100%, 12px 12px, 12px 12px, 100% 100%;
-      background-attachment: fixed;
-      background-position: center;
-      padding-bottom: 90px; /* مساحة للتذييل المتحرك */
+      background-color: #0d1118; /* اللون الكحلي الليلي المطابق لخلفية الصور تماماً */
+      background-image: none; /* إزالة التدرج البني نهائياً */
+      font-family: 'Microsoft Uighur', serif;
+      margin: 0;
+      padding: 0;
     }
 
-    /* الحاوية الطولية المتوافقة مع الجوال */
+    /* الحاوية الرئيسية */
     .mobile-container {
       width: 100%;
       max-width: 500px;
@@ -52,43 +50,48 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      background-color: #0d1118;
     }
 
-    /* تنسيق النصوص الأساسي حسب الشروط */
+    /* تنسيق موحد لجميع النصوص في الصفحة */
     .styled-text {
       color: #edc72c;
-      font-family: 'Microsoft Uighur', 'Traditional Arabic', serif;
-      font-size: 1.5rem;
-      line-height: 1.25;
+      font-family: 'Microsoft Uighur', serif;
+      font-size: clamp(2.1rem, 7.5vw, 2.7rem);
+      line-height: 1.35;
       text-align: center;
-      padding: 15px 12px;
+      width: 100%;
+      padding: 12px 10px;
       z-index: 2;
-      /* أوت لاين #422117 بحجم 4 مع الحفاظ على نظافة الحروف */
+      /* الأوت لاين المطلوب #422117 بحجم 4px */
       -webkit-text-stroke: 4px #422117;
       paint-order: stroke fill;
       text-shadow: 
-        2px 2px 0 #422117,
-        -2px -2px 0 #422117,
-        2px -2px 0 #422117,
-        -2px 2px 0 #422117,
-        0px 4px 10px rgba(0, 0, 0, 0.5);
+        1.5px 1.5px 0 #422117,
+        -1.5px -1.5px 0 #422117,
+        1.5px -1.5px 0 #422117,
+        -1.5px 1.5px 0 #422117;
     }
 
+    /* العنوان الأول Dream Killer في سطر واحد متناسق */
     .title-en {
-      font-size: 4.2rem;
-      letter-spacing: 2px;
-      margin-top: 25px;
-      margin-bottom: 5px;
       direction: ltr;
+      white-space: nowrap;
+      font-size: clamp(2.4rem, 8.5vw, 3.1rem);
+      padding: 18px 10px 10px 10px;
     }
 
-    /* تنسيق الصور والفيديوهات (ملء كامل من اليمين واليسار وتلاشي ناعم من الأعلى والأسفل) */
+    /* حاوية الصور والفيديوهات متلاصقة بدون فواصل */
     .media-wrapper {
       width: 100%;
       position: relative;
-      margin: -6px 0; /* إزالة أي فواصل بشعة بين المحتوى */
+      margin: 0;
+      padding: 0;
+      line-height: 0;
+      font-size: 0;
+      background-color: #0d1118;
       overflow: hidden;
-      pointer-events: none; /* منع أي تفاعل باللمس */
+      pointer-events: none;
     }
 
     .media-item {
@@ -99,12 +102,16 @@
       border: none;
       outline: none;
       pointer-events: none;
-      /* تدرج شفاف طفيف جداً من أعلى وأسفل لدمج الحواف مع الخلفية */
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 3.5%, black 96.5%, transparent 100%);
-      mask-image: linear-gradient(to bottom, transparent 0%, black 3.5%, black 96.5%, transparent 100%);
+      background-color: #0d1118;
     }
 
-    /* إخفاء أي أزرار تحكم افتراضية في المتصفحات */
+    /* الفيديو الصوتي والفيديوهات بدون أي قص أو ضبابية من الأعلى والأسفل */
+    .no-fade {
+      -webkit-mask-image: none !important;
+      mask-image: none !important;
+    }
+
+    /* إخفاء جميع أزرار وعناصر التحكم للفيديو في كافة المتصفحات */
     video::-webkit-media-controls,
     video::-webkit-media-controls-enclosure,
     video::-webkit-media-controls-panel,
@@ -113,87 +120,47 @@
       display: none !important;
       -webkit-appearance: none !important;
       opacity: 0 !important;
+      pointer-events: none !important;
     }
 
-    /* تنسيق أبيات الشعر (بداية البيت الثاني أسفل منتصف البيت الأول) */
+    /* تنسيق الشعر الاحترافي: كل شطر في سطر واحد مستحيل أن ينكسر */
     .poem-section {
       width: 100%;
-      padding: 25px 15px;
+      padding: 18px 10px;
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 18px;
+      background-color: #0d1118;
     }
 
     .stanza {
       width: 100%;
       display: flex;
       flex-direction: column;
-      position: relative;
+      gap: 4px;
     }
 
-    .verse-first {
-      width: 85%;
-      align-self: flex-start; /* يبدأ من اليمين */
-      text-align: right;
-      font-size: 2.7rem;
-      padding: 4px 10px;
-    }
-
+    .verse-first,
     .verse-second {
-      width: 85%;
-      align-self: flex-end; /* يبدأ من منتصف البيت الأول باتجاه اليسار */
+      white-space: nowrap; /* منع انكسار البيت الشعري إلى سطرين نهائياً */
+      font-size: clamp(1.55rem, 5.6vw, 2.15rem);
+      line-height: 1.3;
+      padding: 2px 0;
+      width: auto;
+    }
+
+    /* الشطر الأول يبدأ من اليمين */
+    .verse-first {
+      align-self: flex-start;
       text-align: right;
-      padding-right: 18%;
-      font-size: 2.7rem;
-      margin-top: -4px;
+      padding-right: 2%;
     }
 
-    /* التذييل الشفاف والمتحرك من البداية للنهاية */
-    .floating-footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 58px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(43, 24, 16, 0.35);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.45);
-      z-index: 999;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    .footer-text {
-      font-size: 2.6rem;
-      padding: 0;
-      white-space: nowrap;
-      animation: floatAcross 6s ease-in-out infinite alternate;
-    }
-
-    @keyframes floatAcross {
-      0% {
-        transform: translateX(35px) scale(0.98);
-        filter: drop-shadow(0 2px 6px rgba(237, 199, 44, 0.2));
-      }
-      50% {
-        transform: translateX(0px) scale(1.05);
-        filter: drop-shadow(0 4px 14px rgba(237, 199, 44, 0.55));
-      }
-      100% {
-        transform: translateX(-35px) scale(0.98);
-        filter: drop-shadow(0 2px 6px rgba(237, 199, 44, 0.2));
-      }
-    }
-
-    /* ضبط إضافي للشاشات الصغيرة جداً */
-    @media (max-width: 380px) {
-      .styled-text { font-size: 2.8rem; }
-      .title-en { font-size: 3.5rem; }
-      .verse-first, .verse-second { font-size: 2.3rem; }
+    /* الشطر الثاني يبدأ أسفل منتصف الشطر الأول ويمتد لليسار */
+    .verse-second {
+      align-self: flex-end;
+      text-align: left;
+      padding-left: 2%;
     }
   </style>
 </head>
@@ -201,12 +168,12 @@
 
   <main class="mobile-container">
 
-    <!-- 1. العنوان في أول الصفحة في الوسط -->
-    <h1 class="styled-text title-en">Dream Killer</h1>
+    <!-- 1. العنوان في أول الصفحة في الوسط (سطر واحد) -->
+    <div class="styled-text title-en">Dream Killer</div>
 
     <!-- 2. الصورة الأولى pic1 -->
     <div class="media-wrapper">
-      <img src="pic1.jpg" alt="" class="media-item" draggable="false">
+      <img src="pic1.jpg" alt="" class="media-item" draggable="false" loading="eager">
     </div>
 
     <!-- 3. كلمة "نجمه" -->
@@ -214,12 +181,15 @@
 
     <!-- 4. الصورة الثانية pic2 -->
     <div class="media-wrapper">
-      <img src="pic2.jpg" alt="" class="media-item" draggable="false">
+      <img src="pic2.jpg" alt="" class="media-item" draggable="false" loading="eager">
     </div>
 
-    <!-- 5. الفيديو الأول vid1 (يعمل تلقائياً بنظام Loop كأنه GIF) -->
+    <!-- 5. الفيديو الأول (يتحمل تلقائياً ويدعم الاسمين ved1.mp4 أو vid1.mp4) -->
     <div class="media-wrapper">
-      <video src="ved1.mp4" class="media-item gif-video" autoplay loop muted playsinline webkit-playsinline preload="auto" disablePictureInPicture></video>
+      <video class="media-item gif-video no-fade" autoplay loop muted playsinline webkit-playsinline preload="auto" disablePictureInPicture>
+        <source src="ved1.mp4#t=0.001" type="video/mp4">
+        <source src="vid1.mp4#t=0.001" type="video/mp4">
+      </video>
     </div>
 
     <!-- 6. النص التفاعلي -->
@@ -230,25 +200,31 @@
 
     <!-- 7. الصورة الثالثة pic3 -->
     <div class="media-wrapper">
-      <img src="pic3.jpg" alt="" class="media-item" draggable="false">
+      <img src="pic3.jpg" alt="" class="media-item" draggable="false" loading="eager">
     </div>
 
     <!-- 8. الصورة الرابعة pic4 -->
     <div class="media-wrapper">
-      <img src="pic4.jpg" alt="" class="media-item" draggable="false">
+      <img src="pic4.jpg" alt="" class="media-item" draggable="false" loading="eager">
     </div>
 
-    <!-- 9. الفيديو الصوتي vid aud (يشتغل بالصوت فور ظهوره بالكامل ولا يتوقف أبداً) -->
+    <!-- 9. الفيديو الصوتي (بدون أي قص أو تمويه، مع أولوية التحميل المسبق الكامل) -->
     <div class="media-wrapper">
-      <video id="vid-aud" src="ved aud.mp4" class="media-item" loop playsinline webkit-playsinline preload="auto" disablePictureInPicture></video>
+      <video id="vid-aud" class="media-item no-fade" loop playsinline webkit-playsinline preload="auto" disablePictureInPicture>
+        <source src="ved%20aud.mp4#t=0.001" type="video/mp4">
+        <source src="vid%20aud.mp4#t=0.001" type="video/mp4">
+      </video>
     </div>
 
-    <!-- 10. الفيديو الثاني vid2 (Loop كأنه GIF) -->
+    <!-- 10. الفيديو الثاني (Loop كأنه GIF ويدعم الاسمين vid2.mp4 أو ved2.mp4) -->
     <div class="media-wrapper">
-      <video src="vid2.mp4" class="media-item gif-video" autoplay loop muted playsinline webkit-playsinline preload="auto" disablePictureInPicture></video>
+      <video class="media-item gif-video no-fade" autoplay loop muted playsinline webkit-playsinline preload="auto" disablePictureInPicture>
+        <source src="vid2.mp4#t=0.001" type="video/mp4">
+        <source src="ved2.mp4#t=0.001" type="video/mp4">
+      </video>
     </div>
 
-    <!-- 11. الأبيات الشعرية بالترتيب الشعري -->
+    <!-- 11. الأبيات الشعرية (كل شطر في سطر كامل دون كسر، والشطر الثاني أسفل منتصف الأول) -->
     <section class="poem-section">
       <div class="stanza">
         <div class="styled-text verse-first">محطمة المواهب بنفس الوقت نجمه</div>
@@ -271,108 +247,129 @@
       <img src="pic5.jpg" alt="" class="media-item" draggable="false">
     </div>
 
-    <!-- 13. الصورة السادسة pic6 -->
+    <!-- 13. الصورة السادسة pic6 (نهاية الصفحة تماماً عند حدودها السفلية) -->
     <div class="media-wrapper">
       <img src="pic6.jpg" alt="" class="media-item" draggable="false">
     </div>
 
   </main>
 
-  <!-- 14. التذييل المتحرك والمستمر من البداية للنهاية -->
-  <footer class="floating-footer">
-    <div class="styled-text footer-text">نجمه ⭐</div>
-  </footer>
-
   <script>
-    // منع القائمة المنبثقة والضغط المطول تماماً
-    window.addEventListener('contextmenu', function (e) {
-      e.preventDefault();
-    }, false);
+    // 1. تعطيل القوائم المنبثقة والضغط المطول
+    window.addEventListener('contextmenu', e => e.preventDefault(), false);
 
-    // ضمان عمل الفيديوهات الصامتة (GIF) باستمرار
+    const audioVideo = document.getElementById('vid-aud');
     const gifVideos = document.querySelectorAll('.gif-video');
+
+    // 2. إجبار المتصفح على تحميل الفيديو الصوتي فوراً في الخلفية منذ لحظة فتح الصفحة
+    audioVideo.load();
+
     gifVideos.forEach(v => {
       v.muted = true;
       v.play().catch(() => {});
     });
 
-    // إعداد الفيديو الصوتي (vid aud)
-    const audioVideo = document.getElementById('vid-aud');
-    let hasStartedPlaying = false;
-    let audioUnlocked = false;
+    let isAudioPrimed = false;
+    let isPlayingForever = false;
 
-    // تهيئة محرك الصوت بشكل مخفي وأنيق عند أول لمسة للتمرير دون تشغيل الفيديو
-    function unlockAudioEngine() {
-      if (audioUnlocked) return;
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (AudioContext) {
-        const ctx = new AudioContext();
-        ctx.resume();
-      }
-      // إذا كان الفيديو قد ظهر بالفعل بنسبة 100% وقت اللمس، شغله فوراً
-      if (isFullyVisible(audioVideo) && !hasStartedPlaying) {
-        startAudioVideo();
-      }
-      audioUnlocked = true;
+    // 3. فحص ما إذا كان الفيديو ظاهراً بشكل كامل في الشاشة
+    function isVideoInView(el) {
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      // يعمل فور ظهور 90% إلى 100% من الفيديو في الشاشة
+      const visibleHeight = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+      return rect.height > 0 && (visibleHeight / rect.height) >= 0.92;
     }
 
-    window.addEventListener('touchstart', unlockAudioEngine, { passive: true });
-    window.addEventListener('touchend', unlockAudioEngine, { passive: true });
-    window.addEventListener('click', unlockAudioEngine, { passive: true });
+    // 4. تشغيل الفيديو بالصوت والصورة إلى الأبد
+    function launchTargetVideo() {
+      if (isPlayingForever) return;
+      audioVideo.muted = false;
+      audioVideo.volume = 1.0;
+
+      const playPromise = audioVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          isPlayingForever = true;
+        }).catch(() => {
+          // إذا كان المتصفح لا يزال يقفل الصوت، شغله فوراً مع حركة الإصبع الحالية
+          audioVideo.muted = false;
+          audioVideo.play().then(() => {
+            isPlayingForever = true;
+          }).catch(() => {});
+        });
+      }
+    }
+
+    // 5. الحيلة البرمجية لفك قفل الصوت في الآيفون والأندرويد عند أول لمسة في أعلى الصفحة
+    function unlockAndPrimeVideo() {
+      // ضمان استمرار الفيديوهات الصامتة
+      gifVideos.forEach(v => {
+        if (v.paused) v.play().catch(() => {});
+      });
+
+      if (isPlayingForever) return;
+
+      // إذا وصل المستخدم للفيديو بالفعل، شغله مباشرة
+      if (isVideoInView(audioVideo)) {
+        launchTargetVideo();
+        return;
+      }
+
+      // تهيئة عنصر الفيديو الصوتي بصمت لأجزاء من الثانية عند أول لمسة للشاشة في أعلى الصفحة
+      // هذا يجعل Safari و Chrome يسمحان بتشغيله بالصوت لاحقاً أثناء التمرير دون الحاجة للمسه!
+      if (!isAudioPrimed) {
+        isAudioPrimed = true;
+        audioVideo.muted = false;
+        audioVideo.volume = 0.01;
+        const p = audioVideo.play();
+        if (p !== undefined) {
+          p.then(() => {
+            if (!isVideoInView(audioVideo) && !isPlayingForever) {
+              audioVideo.pause();
+              audioVideo.currentTime = 0;
+              audioVideo.volume = 1.0;
+            } else {
+              audioVideo.volume = 1.0;
+              isPlayingForever = true;
+            }
+          }).catch(() => {
+            isAudioPrimed = false;
+          });
+        }
+      }
+    }
+
+    // ربط التهيئة بأول لمسة أو تمرير يقوم به المستخدم في الصفحة
+    window.addEventListener('touchstart', unlockAndPrimeVideo, { passive: true });
+    window.addEventListener('touchend', unlockAndPrimeVideo, { passive: true });
+    window.addEventListener('click', unlockAndPrimeVideo, { passive: true });
+
+    // 6. مراقبة التمرير والظهور لتشغيل الفيديو فور رؤيته بالكامل
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.92) {
+          launchTargetVideo();
+        }
+      });
+    }, {
+      threshold: [0.92, 0.98, 1.0]
+    });
+
+    observer.observe(audioVideo);
+
     window.addEventListener('scroll', () => {
-      // ضمان بقاء الفيديوهات الصامتة شغالة
+      if (!isPlayingForever && isVideoInView(audioVideo)) {
+        launchTargetVideo();
+      }
       gifVideos.forEach(v => {
         if (v.paused) v.play().catch(() => {});
       });
     }, { passive: true });
 
-    // دالة فحص ظهور الفيديو بالكامل داخل الشاشة
-    function isFullyVisible(el) {
-      const rect = el.getBoundingClientRect();
-      const windowHeight = (window.innerHeight || document.documentElement.clientHeight);
-      return (rect.top >= 0 && rect.bottom <= windowHeight);
-    }
-
-    // دالة تشغيل الفيديو بالصوت والصورة وعدم إيقافه أبداً
-    function startAudioVideo() {
-      if (hasStartedPlaying) return;
-      audioVideo.muted = false;
-      audioVideo.volume = 1.0;
-      audioVideo.play().then(() => {
-        hasStartedPlaying = true;
-      }).catch(() => {
-        // في حال حاول المتصفح تأخير الصوت، نعيد المحاولة فور أول حركة إصبع أثناء التمرير
-        const retryOnTouch = () => {
-          if (!hasStartedPlaying && isFullyVisible(audioVideo)) {
-            audioVideo.muted = false;
-            audioVideo.play().then(() => {
-              hasStartedPlaying = true;
-              window.removeEventListener('touchmove', retryOnTouch);
-              window.removeEventListener('touchstart', retryOnTouch);
-            }).catch(() => {});
-          }
-        };
-        window.addEventListener('touchmove', retryOnTouch, { passive: true });
-        window.addEventListener('touchstart', retryOnTouch, { passive: true });
-      });
-    }
-
-    // مراقب الظهور: يراقب الفيديو حتى يدخل بنسبة 100% (threshold: 1.0)
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.98) {
-          startAudioVideo();
-        }
-      });
-    }, {
-      threshold: [0.98, 1.0] // يشتغل فور ظهور كامل إطار الفيديو في الشاشة
-    });
-
-    observer.observe(audioVideo);
-
-    // حراسة مشددة: بمجرد أن يبدأ الفيديو الصوتي، يُمنع توقفه نهائياً مهما نزل أو طلع المستخدم
+    // 7. منع الفيديو الصوتي من التوقف نهائياً بعد أن يبدأ
     audioVideo.addEventListener('pause', () => {
-      if (hasStartedPlaying) {
+      if (isPlayingForever) {
         audioVideo.play().catch(() => {});
       }
     });
